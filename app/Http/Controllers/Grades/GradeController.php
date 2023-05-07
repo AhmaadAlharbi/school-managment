@@ -1,10 +1,11 @@
-<?php 
+<?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Grades;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class GradeController extends Controller 
+class GradeController extends Controller
 {
 
   /**
@@ -14,7 +15,7 @@ class GradeController extends Controller
    */
   public function index()
   {
-    
+    return view('pages.Grades.Grades');
   }
 
   /**
@@ -24,7 +25,6 @@ class GradeController extends Controller
    */
   public function create()
   {
-    
   }
 
   /**
@@ -34,7 +34,6 @@ class GradeController extends Controller
    */
   public function store(Request $request)
   {
-    
   }
 
   /**
@@ -45,7 +44,6 @@ class GradeController extends Controller
    */
   public function show($id)
   {
-    
   }
 
   /**
@@ -56,7 +54,6 @@ class GradeController extends Controller
    */
   public function edit($id)
   {
-    
   }
 
   /**
@@ -67,7 +64,6 @@ class GradeController extends Controller
    */
   public function update($id)
   {
-    
   }
 
   /**
@@ -78,9 +74,5 @@ class GradeController extends Controller
    */
   public function destroy($id)
   {
-    
   }
-  
 }
-
-?>
