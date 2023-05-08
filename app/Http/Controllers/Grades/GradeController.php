@@ -38,6 +38,21 @@ class GradeController extends Controller
   public function store(StoreGrades $request)
   {
     $validated = $request->validated();
+    $Grade = new Grade();
+    $Grade->Name = ['en' => $request->Name_en, 'ar' => $request->Name];
+    $Grade->Notes = $request->Notes;
+    $Grade->save();
+    toastr()->success(trans('messages.success'));
+    return redirect()->route('Grades.index');
+
+    /*
+       another way
+          $translations = [
+              'en' => $request->Name_en,
+              'ar' => $request->Name
+          ];
+          $Grade->setTranslations('Name', $translations);
+          */
   }
 
   /**

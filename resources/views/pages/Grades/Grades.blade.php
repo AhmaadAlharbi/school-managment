@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('css')
-
+@toastr_css
 @section('title')
 {{trans('main_trans.Grades')}}
 @stop
@@ -126,5 +126,6 @@
 <!-- row closed -->
 @endsection
 @section('js')
-
+@toastr_js
+@toastr_render
 @endsection
