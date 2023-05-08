@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Grades;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Grade;
+use App\Http\Requests\StoreGrades;
 
 class GradeController extends Controller
 {
@@ -15,7 +17,8 @@ class GradeController extends Controller
    */
   public function index()
   {
-    return view('pages.Grades.Grades');
+    $Grades = Grade::all();
+    return view('pages.Grades.Grades', compact('Grades'));
   }
 
   /**
@@ -32,8 +35,9 @@ class GradeController extends Controller
    *
    * @return Response
    */
-  public function store(Request $request)
+  public function store(StoreGrades $request)
   {
+    $validated = $request->validated();
   }
 
   /**
