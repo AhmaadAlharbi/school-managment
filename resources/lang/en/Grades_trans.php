@@ -14,6 +14,8 @@ return [
     'Name' => 'Name',
     'Processes' => 'Processes',
     'Edit' => 'Edit',
+    'exists' => 'The grade you enterd is already exists',
+
     'Delete' => 'Delete',
     'Close' => 'Close',
 
