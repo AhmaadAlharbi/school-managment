@@ -91,19 +91,36 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        try {
+
+            $Classrooms = Classroom::findOrFail($request->id);
+
+            $Classrooms->update([
+
+                $Classrooms->Name_Class = ['ar' => $request->Name, 'en' => $request->Name_en],
+                $Classrooms->Grade_id = $request->Grade_id,
+            ]);
+            toastr()->success(trans('messages.Update'));
+            return redirect()->route('Classrooms.index');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+
+        $Classrooms = Classroom::findOrFail($request->id)->delete();
+        toastr()->success(trans('messages.Delete'));
+        return redirect()->route('Classrooms.index');
     }
 }
