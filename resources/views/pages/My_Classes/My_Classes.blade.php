@@ -52,7 +52,7 @@
                             <tr>
                                 <?php $i++; ?>
                                 <td>{{ $i }}</td>
-                                <td>{{ $My_Class->Name }}</td>
+                                <td>{{ $My_Class->Name_Class }}</td>
                                 <td>{{ $My_Class->Grades->Name }}</td>
                                 <td>
                                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
@@ -178,37 +178,28 @@
                 </div>
                 <div class="modal-body">
 
-                    <form class=" row mb-30" action="{{ route('Classrooms.store') }}" method="POST">
+                    <form class="row mb-30" action="{{ route('Classrooms.store') }}" method="POST">
                         @csrf
-
                         <div class="card-body">
                             <div class="repeater">
                                 <div data-repeater-list="List_Classes">
                                     <div data-repeater-item>
-
                                         <div class="row">
-
                                             <div class="col">
                                                 <label for="Name" class="mr-sm-2">{{
-                                                    trans('My_Classes_trans.Name_class') }}
-                                                    :</label>
-                                                <input class="form-control" type="text" name="Name" required />
+                                                    trans('My_Classes_trans.Name_class') }}:</label>
+                                                <input class="form-control" type="text" name="Name" />
                                             </div>
 
-
                                             <div class="col">
-                                                <label for="Name" class="mr-sm-2">{{
-                                                    trans('My_Classes_trans.Name_class_en') }}
-                                                    :</label>
-                                                <input class="form-control" type="text" name="Name_class_en" required />
+                                                <label for="Name_class_en" class="mr-sm-2">{{
+                                                    trans('My_Classes_trans.Name_class_en') }}:</label>
+                                                <input class="form-control" type="text" name="Name_class_en" />
                                             </div>
 
-
                                             <div class="col">
-                                                <label for="Name_en" class="mr-sm-2">{{
-                                                    trans('My_Classes_trans.Name_Grade') }}
-                                                    :</label>
-
+                                                <label for="Grade_id" class="mr-sm-2">{{
+                                                    trans('My_Classes_trans.Name_Grade') }}:</label>
                                                 <div class="box">
                                                     <select class="fancyselect" name="Grade_id">
                                                         @foreach ($Grades as $Grade)
@@ -216,25 +207,27 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-
                                             </div>
 
                                             <div class="col">
-                                                <label for="Name_en" class="mr-sm-2">{{
-                                                    trans('My_Classes_trans.Processes') }}
-                                                    :</label>
+                                                <label for="Processes" class="mr-sm-2">{{
+                                                    trans('My_Classes_trans.Processes') }}:</label>
                                                 <input class="btn btn-danger btn-block" data-repeater-delete
                                                     type="button" value="{{ trans('My_Classes_trans.delete_row') }}" />
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+
+                                        <!-- The following input field is needed to store the ID of the created class -->
+                                        <input type="hidden" name="Classroom_id" value="0" />
+
+                                    </div> <!-- End of "data-repeater-item" div -->
+                                </div> <!-- End of "data-repeater-list" div -->
+
                                 <div class="row mt-20">
                                     <div class="col-12">
                                         <input class="button" data-repeater-create type="button"
                                             value="{{ trans('My_Classes_trans.add_row') }}" />
                                     </div>
-
                                 </div>
 
                                 <div class="modal-footer">
@@ -243,11 +236,10 @@
                                     <button type="submit" class="btn btn-success">{{ trans('Grades_trans.submit')
                                         }}</button>
                                 </div>
-
-
                             </div>
                         </div>
                     </form>
+
                 </div>
 
 

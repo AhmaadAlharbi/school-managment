@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'title_page' => 'Grades',
     'List_Grade' => 'List_Grade',
     'add_Grade' => 'Add Grade',
@@ -14,11 +15,8 @@ return [
     'Name' => 'Name',
     'Processes' => 'Processes',
     'Edit' => 'Edit',
-    'exists' => 'The grade you enterd is already exists',
-
+    'exists' => 'This field already exists',
     'Delete' => 'Delete',
     'Close' => 'Close',
-
-
 
 ];
