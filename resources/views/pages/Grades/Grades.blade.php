@@ -8,13 +8,20 @@
 @section('page-header')
 <!-- breadcrumb -->
 @section('PageTitle')
-{{trans('main_trans.Grades')}}
+{{ trans('main_trans.Grades') }}
 @stop
 <!-- breadcrumb -->
 @endsection
 @section('content')
 <!-- row -->
 <div class="row">
+
+
+    @if ($errors->any())
+    <div class="error">{{ $errors->first('Name') }}</div>
+    @endif
+
+
 
     <div class="col-xl-12 mb-30">
         <div class="card card-statistics h-100">
@@ -41,9 +48,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{trans('Grades_trans.Name')}}</th>
-                                <th>{{trans('Grades_trans.Notes')}}</th>
-                                <th>{{trans('Grades_trans.Processes')}}</th>
+                                <th>{{ trans('Grades_trans.Name') }}</th>
+                                <th>{{ trans('Grades_trans.Notes') }}</th>
+                                <th>{{ trans('Grades_trans.Processes') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,8 +87,8 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- add_form -->
-                                            <form action="{{route('Grades.update','test')}}" method="post">
-                                                {{method_field('patch')}}
+                                            <form action="{{ route('Grades.update', 'test') }}" method="post">
+                                                {{ method_field('patch') }}
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col">
@@ -89,7 +96,7 @@
                                                             trans('Grades_trans.stage_name_ar') }}
                                                             :</label>
                                                         <input id="Name" type="text" name="Name" class="form-control"
-                                                            value="{{$Grade->getTranslation('Name', 'ar')}}" required>
+                                                            value="{{ $Grade->getTranslation('Name', 'ar') }}" required>
                                                         <input id="id" type="hidden" name="id" class="form-control"
                                                             value="{{ $Grade->id }}">
                                                     </div>
@@ -98,7 +105,7 @@
                                                             trans('Grades_trans.stage_name_en') }}
                                                             :</label>
                                                         <input type="text" class="form-control"
-                                                            value="{{$Grade->getTranslation('Name', 'en')}}"
+                                                            value="{{ $Grade->getTranslation('Name', 'en') }}"
                                                             name="Name_en" required>
                                                     </div>
                                                 </div>
@@ -140,8 +147,8 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{route('Grades.destroy','test')}}" method="post">
-                                                {{method_field('Delete')}}
+                                            <form action="{{ route('Grades.destroy', 'test') }}" method="post">
+                                                {{ method_field('Delete') }}
                                                 @csrf
                                                 {{ trans('Grades_trans.Warning_Grade') }}
                                                 <input id="id" type="hidden" name="id" class="form-control"
@@ -193,7 +200,7 @@
                             <div class="col">
                                 <label for="Name_en" class="mr-sm-2">{{ trans('Grades_trans.stage_name_en') }}
                                     :</label>
-                                <input type="text" class="form-control" name="Name_en" required>
+                                <input type="text" class="form-control" name="Name_en">
                             </div>
                         </div>
                         <div class="form-group">

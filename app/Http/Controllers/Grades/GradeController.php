@@ -38,21 +38,21 @@ class GradeController extends Controller
    */
   public function store(Request $request)
   {
-    $listClasses = $request->List_Classes;
-
     try {
-      foreach ($listClasses as $listClass) {
-        $classroom = new Classroom();
-        $classroom->Grade_id = $listClass['Grade_id'];
-        $classroom->Name_Class = [
-          'en' => $listClass['Name_class_en'],
-          'ar' => $listClass['Name'],
-        ];
-        $classroom->save();
-      }
-
+      // $validated = $request->validated();
+      $Grade = new Grade();
+      /*
+      $translations = [
+          'en' => $request->Name_en,
+          'ar' => $request->Name
+      ];
+      $Grade->setTranslations('Name', $translations);
+      */
+      $Grade->Name = ['en' => $request->Name_en, 'ar' => $request->Name];
+      $Grade->Notes = $request->Notes;
+      $Grade->save();
       toastr()->success(trans('messages.success'));
-      return redirect()->route('Classrooms.index');
+      return redirect()->route('Grades.index');
     } catch (\Exception $e) {
       return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
