@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'Dashboard' => 'Dashboard',
     'Dashboard_page' => 'Dashboard',
     'Main_title' => 'MoraSoft School Management Program',
@@ -30,7 +31,5 @@ return [
     'Users' => 'Users',
     'Copyright' => 'Copyright',
     'Name_Programer' => 'SamirGamal MoraSoft All Rights Reserved'
-
-
 
 ];
