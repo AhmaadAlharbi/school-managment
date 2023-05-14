@@ -4,16 +4,20 @@ namespace App\Http\Livewire;
 
 use App\Models\My_Parent;
 use App\Models\Nationalitie;
+use App\Models\ParentAttachment;
 use App\Models\Religion;
 use App\Models\Type_Blood;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class AddParent extends Component
 {
+    use WithFileUploads;
+
     public $successMessage = '';
 
-    public $catchError;
+    public $catchError, $updateMode = false, $photos;
 
     public $currentStep = 1,
 
@@ -101,43 +105,49 @@ class AddParent extends Component
 
     public function submitForm()
     {
-
         try {
-            $My_Parent = new My_Parent();
-            // Father_INPUTS
-            $My_Parent->Email = $this->Email;
-            $My_Parent->Password = Hash::make($this->Password);
-            $My_Parent->Name_Father = ['en' => $this->Name_Father_en, 'ar' => $this->Name_Father];
-            $My_Parent->National_ID_Father = $this->National_ID_Father;
-            $My_Parent->Passport_ID_Father = $this->Passport_ID_Father;
-            $My_Parent->Phone_Father = $this->Phone_Father;
-            $My_Parent->Job_Father = ['en' => $this->Job_Father_en, 'ar' => $this->Job_Father];
-            $My_Parent->Passport_ID_Father = $this->Passport_ID_Father;
-            $My_Parent->Nationality_Father_id = $this->Nationality_Father_id;
-            $My_Parent->Blood_Type_Father_id = $this->Blood_Type_Father_id;
-            $My_Parent->Religion_Father_id = $this->Religion_Father_id;
-            $My_Parent->Address_Father = $this->Address_Father;
+            $myParent = My_Parent::create([
+                'Email' => $this->Email,
+                'Password' => Hash::make($this->Password),
+                'Name_Father' => ['en' => $this->Name_Father_en, 'ar' => $this->Name_Father],
+                'National_ID_Father' => $this->National_ID_Father,
+                'Passport_ID_Father' => $this->Passport_ID_Father,
+                'Phone_Father' => $this->Phone_Father,
+                'Job_Father' => ['en' => $this->Job_Father_en, 'ar' => $this->Job_Father],
+                'Nationality_Father_id' => $this->Nationality_Father_id,
+                'Blood_Type_Father_id' => $this->Blood_Type_Father_id,
+                'Religion_Father_id' => $this->Religion_Father_id,
+                'Address_Father' => $this->Address_Father,
+                'Name_Mother' => ['en' => $this->Name_Mother_en, 'ar' => $this->Name_Mother],
+                'National_ID_Mother' => $this->National_ID_Mother,
+                'Passport_ID_Mother' => $this->Passport_ID_Mother,
+                'Phone_Mother' => $this->Phone_Mother,
+                'Job_Mother' => ['en' => $this->Job_Mother_en, 'ar' => $this->Job_Mother],
+                'Nationality_Mother_id' => $this->Nationality_Mother_id,
+                'Blood_Type_Mother_id' => $this->Blood_Type_Mother_id,
+                'Religion_Mother_id' => $this->Religion_Mother_id,
+                'Address_Mother' => $this->Address_Mother,
+            ]);
 
-            // Mother_INPUTS
-            $My_Parent->Name_Mother = ['en' => $this->Name_Mother_en, 'ar' => $this->Name_Mother];
-            $My_Parent->National_ID_Mother = $this->National_ID_Mother;
-            $My_Parent->Passport_ID_Mother = $this->Passport_ID_Mother;
-            $My_Parent->Phone_Mother = $this->Phone_Mother;
-            $My_Parent->Job_Mother = ['en' => $this->Job_Mother_en, 'ar' => $this->Job_Mother];
-            $My_Parent->Passport_ID_Mother = $this->Passport_ID_Mother;
-            $My_Parent->Nationality_Mother_id = $this->Nationality_Mother_id;
-            $My_Parent->Blood_Type_Mother_id = $this->Blood_Type_Mother_id;
-            $My_Parent->Religion_Mother_id = $this->Religion_Mother_id;
-            $My_Parent->Address_Mother = $this->Address_Mother;
+            if (!empty($this->photos)) {
+                $parentId = $myParent->id;
+                foreach ($this->photos as $photo) {
+                    $photo->storeAs($this->National_ID_Father, $photo->getClientOriginalName(), $disk = 'parent_attachments');
+                    ParentAttachment::create([
+                        'file_name' => $photo->getClientOriginalName(),
+                        'parent_id' => $parentId,
+                    ]);
+                }
+            }
 
-            $My_Parent->save();
             $this->successMessage = trans('messages.success');
             $this->clearForm();
             $this->currentStep = 1;
         } catch (\Exception $e) {
             $this->catchError = $e->getMessage();
-        };
+        }
     }
+
 
 
     //clearForm
