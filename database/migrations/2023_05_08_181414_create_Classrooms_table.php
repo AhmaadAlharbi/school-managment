@@ -13,6 +13,8 @@ class CreateClassroomsTable extends Migration
             $table->string('Name_Class');
             $table->bigInteger('Grade_id')->unsigned();
             $table->timestamps();
+            $table->foreign('Grade_id')->references('id')->on('Grades')
+                ->onDelete('cascade');
         });
     }
 
