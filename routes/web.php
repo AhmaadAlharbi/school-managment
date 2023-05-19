@@ -62,6 +62,7 @@ Route::group(
             Route::resource('Promotion', 'PromotionController');
             Route::resource('Fees', 'FeesController');
             Route::resource('Fees_Invoices', 'FeesInvoicesController');
+            Route::resource('receipt_students', 'ReceiptStudentsController');
 
             Route::get('/Get_classrooms/{id}', 'StudentController@Get_classrooms');
             Route::get('/Get_Sections/{id}', 'StudentController@Get_Sections');
