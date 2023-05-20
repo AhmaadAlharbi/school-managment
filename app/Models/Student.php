@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class Student extends Model
 {
-    use HasTranslations;
     use SoftDeletes;
 
+    use HasTranslations;
     public $translatable = ['name'];
     protected $guarded = [];
 
@@ -42,11 +42,14 @@ class Student extends Model
     {
         return $this->belongsTo('App\Models\Section', 'section_id');
     }
+
+
     // علاقة بين الطلاب والصور لجلب اسم الصور  في جدول الطلاب
     public function images()
     {
         return $this->morphMany('App\Models\Image', 'imageable');
     }
+
     // علاقة بين الطلاب والجنسيات  لجلب اسم الجنسية  في جدول الجنسيات
 
     public function Nationality()
@@ -60,5 +63,11 @@ class Student extends Model
     public function myparent()
     {
         return $this->belongsTo('App\Models\My_Parent', 'parent_id');
+    }
+
+    // علاقة بين جدول سدادت الطلاب وجدول الطلاب لجلب اجمالي المدفوعات والمتبقي
+    public function student_account()
+    {
+        return $this->hasMany('App\Models\StudentAccount', 'student_id');
     }
 }
