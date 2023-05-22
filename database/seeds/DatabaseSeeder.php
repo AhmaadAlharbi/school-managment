@@ -6,6 +6,7 @@ use Database\Seeders\ClassroomSeeder;
 use Database\Seeders\SectionsSeeder;
 use Database\Seeders\ParentsSeeder;
 use Database\Seeders\StudentsSeeder;
+use Database\Seeders\TeacherSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SectionsSeeder::class);
         $this->call(ParentsSeeder::class);
         $this->call(StudentsSeeder::class);
+        $this->call(TeacherSeeder::class);
     }
 }
